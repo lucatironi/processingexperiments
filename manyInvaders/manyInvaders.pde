@@ -1,22 +1,30 @@
-int limit = 50;
-int block = 25;
-Invader[] invaders = new Invader[limit];
+Fleet fleet;
+Fleet fleet2;
 
 void setup()
 {
-  size(block * 20, block * 15);
-  frameRate(2);
-  background(255);
-  noStroke();
-
-  for (int i=0; i<invaders.length; i++){
-    invaders[i] = new Invader(int(random(0, width - block)), int(random(0, height - block)), int(random(pow(2,15))), (block / 25));
+  size(800, 600, P3D);
+  fleet = new Fleet();
+  fleet2 = new Fleet();
+  // Add an initial set of boids into the system
+  for (int i = 0; i < 70; i++) {
+    fleet.addInvader(new Boid(new PVector(width / 2, height / 2), 2.0, 0.05));
   }
+  for (int i = 0; i < 70; i++) {
+    fleet2.addInvader(new Boid(new PVector(width / 2, height / 2), 2.0, 0.05));
+  }
+  smooth();
+  noFill();
+  stroke(180, 100);
 }
 
-void draw()
-{
-  for (int i=0; i<invaders.length; i++){
-    invaders[i].draw();
-  }
+void draw() {
+  background(50);
+  fleet.run();
+  fleet2.run();
+}
+
+// Add a new boid into the System
+void mousePressed() {
+  fleet.addInvader(new Boid(new PVector(mouseX, mouseY), 2.0, 0.05));
 }
