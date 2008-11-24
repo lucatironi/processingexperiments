@@ -38,7 +38,7 @@ class Boid {
     PVector ali = align(boids);      // Alignment
     PVector coh = cohesion(boids);   // Cohesion
     // Arbitrarily weight these forces
-    sep.mult(5.0);
+    sep.mult(10.0);
     ali.mult(1.0);
     coh.mult(1.0);
     // Add the force vectors to acceleration
@@ -108,8 +108,8 @@ class Boid {
   
   // Wraparound
   void borders() {
-    if (loc.x < -r || loc.x > width+r) vel.x *= -1;
-    if (loc.y < -r || loc.y > height+r) vel.y *= -1;
+    if (loc.x < r*2 || loc.x > width-r*2) vel.x *= -1;
+    if (loc.y < r*2 || loc.y > height-r*2) vel.y *= -1;
   }
 
   // Separation
